@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <input id="input" type="text">
+  <button onclick="sendMsg()">Senden</button>
+  <ul id="messages"></ul>
+
+  <script>
+    function sendMsg() {
+    const input = document.getElementById("input");
+    ws.send(input.value);
+    input.value = "";}
+    const ws = new WebSocket("ws://localhost:9001/ws");
+    ws.onmessage = (event) => {
+      const li = document.createElement("li");
+      li.innerText = event.data;
+      document.getElementById("messages").appendChild(li);
+    };
+  </script>
+</body>
+</html>
